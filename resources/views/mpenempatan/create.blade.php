@@ -20,15 +20,15 @@
                         {{-- {{ Auth::user()->mahasiswa->nim }} --}}
                         <div class="card-body">
                             <div class="form-validation">
-                                <form class="form-valide" action="{{ route('surat.store') }}" method="post"
+                                <form class="form-valide" action="{{ route('mpenempatan.store') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="lokasi_id">Dosen <span
+                                        <label class="col-lg-4 col-form-label" for="nidn">Dosen <span
                                                 class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="lokasi_id" name="lokasi_id">
+                                            <select class="form-control" id="nidn" name="nidn">
                                                 <option value="">Pilih Dosen</option>
                                                 @foreach ($dosen as $item)
                                                     <option value="{{ $item->nidn }}">{{ $item->nama_lengkap }}

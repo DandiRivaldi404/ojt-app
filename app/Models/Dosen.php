@@ -20,4 +20,8 @@ class Dosen extends Model
     public function monitoring(){
         return $this->hasOne(Monitoring::class);
     }
+
+    public function penempatan(){
+        return $this->hasOne(Penempatan::class);
+    }
 }

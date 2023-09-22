@@ -8,12 +8,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\InstansiNilaiController;
 use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\KoordinatorController;
 use App\Http\Controllers\ListAbsenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MdataController;
 use App\Http\Controllers\MlokasiController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MpenempatanController;
+use App\Http\Controllers\PenempatanLokasiController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SuratIzinController;
 use App\Http\Controllers\TugasAkhirController;
@@ -56,6 +58,7 @@ Route::resource('monitoring', MonitoringController::class);
 Route::resource('mdata', MdataController::class);
 Route::resource('mlokasi', MlokasiController::class);
 Route::resource('mpenempatan', MpenempatanController::class);
-
+Route::resource('koordinator', KoordinatorController::class);
+Route::resource('penempatanlokasi', PenempatanLokasiController::class);
 
 require __DIR__ . '/auth.php';

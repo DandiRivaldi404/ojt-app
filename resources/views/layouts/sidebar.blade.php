@@ -156,6 +156,12 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Tugas Akhir</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{{ route('penempatanlokasi.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Penempatan Lokasi</span>
+                        </a>
+                    </li>
                 @endcanany
 
             @endguest

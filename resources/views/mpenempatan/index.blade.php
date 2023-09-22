@@ -103,12 +103,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($dosen as $item)
+                                                        @foreach ($penempatan as $item)
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $item->nidn }}</td>
-                                                                <td>{{ $item->nama_lengkap }}</td>
-                                                                <td>{{ $item->alamat }}</td>
+                                                                <td>{{ $item->dosen->nidn }}</td>
+                                                                <td>{{ $item->dosen->nama_lengkap }}</td>
+                                                                <td>{{ $item->dosen->alamat }}</td>
                                                                 <td>
                                                                     @if ($item->lokasi)
                                                                         {{ $item->lokasi->nama_instansi }}
@@ -141,28 +141,60 @@
 
                                     <div class="tab-pane fade" id="contact">
                                         <div class="p-t-15">
-                                            <h4>This is contact title</h4>
-                                            <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                                Consonantia, there live the blind texts. Separated they live in
-                                                Bookmarksgrove.
-                                            </p>
-                                            <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                                Consonantia, there live the blind texts. Separated they live in
-                                                Bookmarksgrove.
-                                            </p>
+                                            <h6>Data Dosen</h6>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered zero-configuration">
+                                                    {{-- <a style="float: right" href="{{ route('mpenempatan.create') }}"
+                                                        class="btn mb-1 btn-rounded btn-outline-primary">Penempatan</a> --}}
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama Lengkap</th>
+                                                            <th>Jenis Kelamin</th>
+                                                            <th>Jabatan</th>
+                                                            <th>No HP</th>
+                                                            <th>Lokasi</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($koordinator as $item)
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}</td>
+                                                                <td>{{ $item->nama_lengkap }}</td>
+                                                                <td>{{ $item->jenis_kelamin }}</td>
+                                                                <td>{{ $item->jabatan }}</td>
+                                                                <td>{{ $item->no_hp }}</td>
+                                                                <td>
+                                                                    @if ($item->lokasi)
+                                                                        {{ $item->lokasi->nama_instansi }}
+                                                                    @else
+                                                                        N/A
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <form
+                                                                        action="{{ route('koordinator.destroy', $item->id_koordinator) }}"
+                                                                        method="POST">
+                                                                        <a href="{{ route('koordinator.edit', $item->id_koordinator) }}"
+                                                                            class="btn btn-rounded btn-outline-primary">Edit
+                                                                            Data</a>
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-rounded btn-outline-danger">Hapus
+                                                                            Data</button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="message">
-                                        <div class="p-t-15">
-                                            <h4>This is message title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt
-                                                tofu
-                                                stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt
-                                                tofu
-                                                stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

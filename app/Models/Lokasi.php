@@ -16,4 +16,12 @@ class Lokasi extends Model
     public function mahasiswa(){
         return $this->hasOne(Mahasiswa::class);
     }
+
+    public function penempatan(){
+        return $this->hasOne(Penempatan::class);
+    }
+
+    public function koordinator(){
+        return $this->hasOne(Koordinator::class);
+    }
 }

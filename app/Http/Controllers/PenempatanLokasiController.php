@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dosen;
-use App\Models\Koordinator;
-use App\Models\Lokasi;
-use App\Models\Mahasiswa;
 use App\Models\Penempatan;
 use Illuminate\Http\Request;
 
-class MpenempatanController extends Controller
+class PenempatanLokasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +14,8 @@ class MpenempatanController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::all();
-        $dosen = Dosen::all();
-        $lokasi = Lokasi::all();
         $penempatan = Penempatan::all();
-        $koordinator = Koordinator::all();
-        return view('mpenempatan.index', compact(['mhs', 'lokasi', 'dosen','penempatan','koordinator']));
+        return view('penempatanlokasi.index', compact('penempatan'));
     }
 
     /**
@@ -33,9 +25,7 @@ class MpenempatanController extends Controller
      */
     public function create()
     {
-        $dosen = Dosen::all();
-        $lokasi = Lokasi::all();
-        return view('mpenempatan.create', compact(['dosen', 'lokasi']));
+        //
     }
 
     /**
@@ -46,13 +36,7 @@ class MpenempatanController extends Controller
      */
     public function store(Request $request)
     {
-        $ValidatedData = $request->validate([
-            'nidn' => '',
-            'lokasi_id' => '',
-        ]);
-
-        Penempatan::create($ValidatedData);
-        return redirect()->route('mpenempatan.index');
+        //
     }
 
     /**

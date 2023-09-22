@@ -16,4 +16,8 @@ class Koordinator extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function lokasi(){
+        return $this->belongsTo(Lokasi::class,'lokasi_id');
+    }
 }
