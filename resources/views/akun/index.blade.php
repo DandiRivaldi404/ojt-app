@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-
     <div class="content-body">
 
         <div class="row page-titles mx-0">
@@ -19,15 +18,16 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Data Table</h4>
+                            <h4 class="card-title">Daftar User</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
                                     <a style="float: right" href="{{ route('akun.create') }}"
-                                        class="btn mb-1 btn-rounded btn-outline-primary">Tambah Data</a>
+                                        class="btn mb-1 btn-rounded btn-outline-primary">Tambah USer</a>
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Nama Pengguna</th>
                                             <th>Level</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -37,15 +37,17 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->name }}</td>
+                                                <td>{{ $item->username }}</td>
                                                 <td>{{ $item->level }}</td>
                                                 <td>
                                                     <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
+                                                        <a href="" class="btn btn-rounded btn-outline-success">Detail</a>
                                                         <a href="{{ route('akun.edit', $item->id) }}"
-                                                            class="btn btn-rounded btn-outline-primary">Edit Data</a>
+                                                            class="btn btn-rounded btn-outline-primary">Edit</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-rounded btn-outline-danger">Hapus Data</button>
+                                                            class="btn btn-rounded btn-outline-danger">Hapus</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -61,5 +63,4 @@
         </div>
         <!-- #/ container -->
     </div>
-    
 @endsection

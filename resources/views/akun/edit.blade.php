@@ -26,7 +26,7 @@
                                     @csrf
                                     @method('put')
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="name">Name <span
+                                        <label class="col-lg-4 col-form-label" for="name">Nama Lengkap <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -34,16 +34,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="email">Email <span
+                                        <label class="col-lg-4 col-form-label" for="username">Nama Pengguna <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="email" name="email"
-                                            value="{{$akun->email}}">
+                                            <input type="text" class="form-control" id="username" name="username"
+                                            value="{{$akun->username}}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="password">Password <span
+                                        <label class="col-lg-4 col-form-label" for="password">Kata Sandi <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -58,7 +58,7 @@
                                         </label>
                                         <div class="col-lg-6">
                                             <select class="form-control" id="level" name="level">
-                                                <option value="">Please select</option>
+                                                <option value="">Pilih Level</option>
                                                 <option value="panitia" {{$akun->level === 'panitia' ? 'selected' : ''}}>Panitia</option>
                                                 <option value="mhs" {{$akun->level === 'mhs' ? 'selected' : ''}}>Mahasiswa</option>
                                                 <option value="dpl" {{$akun->level === 'dpl' ? 'selected' : ''}}>DPL</option>

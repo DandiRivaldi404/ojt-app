@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Informasi;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $mhs = Mahasiswa::all();
+        $info  = Informasi::all();
+        return view('dashboard.index', compact(['mhs','info']));
     }
 
     /**

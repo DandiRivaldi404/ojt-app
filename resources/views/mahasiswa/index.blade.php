@@ -17,7 +17,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Mahasiswa</h4>
+                            <h4 class="card-title">Mahasiswa
+
+                            </h4>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
                                     {{-- <a style="float: right" href="{{ route('mahasiswa.create') }}"
@@ -25,9 +27,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Nim</th>
                                             <th>Nama Mahasiswa</th>
                                             <th>semester</th>
-                                            <th>Nim</th>
+                                            <th>Lokasi</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -38,6 +41,7 @@
                                                 <td>{{ $item->nim}}</td>
                                                 <td>{{ $item->nama_mahasiswa }}</td>
                                                 <td>{{ $item->semester}}</td>
+                                                <td>{{ $item->lokasi->nama_instansi}}</td>
                                                 <td>
                                                     <a href="{{ route('mahasiswa.show', $item->nim) }}" class="btn btn-success">Detail</a>
                                                     {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">

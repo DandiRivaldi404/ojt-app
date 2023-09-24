@@ -25,7 +25,7 @@
                                 <form class="form-valide" action="{{ route('akun.store') }}" method="post">
                                     @csrf
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="name">Name <span
+                                        <label class="col-lg-4 col-form-label" for="name">Nama Lengkap <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -35,7 +35,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="username">Username <span
+                                        <label class="col-lg-4 col-form-label" for="username">Nama Pengguna <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="password">Password <span
+                                        <label class="col-lg-4 col-form-label" for="password">Kata Sandi <span
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
@@ -52,8 +52,6 @@
                                                 placeholder="Choose a safe one..">
                                         </div>
                                     </div>
-
-
 
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="level">Level <span

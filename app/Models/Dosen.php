@@ -22,6 +22,6 @@ class Dosen extends Model
     }
 
     public function penempatan(){
-        return $this->hasOne(Penempatan::class);
+        return $this->hasOne(Penempatan::class, 'nidn','nidn');
     }
 }

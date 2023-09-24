@@ -8,48 +8,33 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="card gradient-1">
                         <div class="card-body">
-                            <h3 class="card-title text-white">Products Sold</h3>
+                            <h3 class="card-title text-white">Jumalah Mahasiswa</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-2">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">Net Profit</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">$ 8541</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
-                            </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-3">
-                        <div class="card-body">
-                            <h3 class="card-title text-white">New Customers</h3>
-                            <div class="d-inline-block">
-                                <h2 class="text-white">4565</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
+                                <p class="text-white mb-0">{{$mhs->count()}}</p>
                             </div>
                             <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
-                    <div class="card gradient-4">
+                    <div class="card gradient-2">
                         <div class="card-body">
-                            <h3 class="card-title text-white">Customer Satisfaction</h3>
+                            <h3 class="card-title text-white">Pendaftaran Mulai</h3>
                             <div class="d-inline-block">
-                                <h2 class="text-white">99%</h2>
-                                <p class="text-white mb-0">Jan - March 2019</p>
+                                <p class="text-white mb-0"></p>
                             </div>
-                            <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                            <span class="float-right display-5 opacity-5"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="card gradient-3">
+                        <div class="card-body">
+                            <h3 class="card-title text-white">Pendaftaran Akhir</h3>
+                            <div class="d-inline-block">
+                                <p class="text-white mb-0"></p>
+                            </div>
+                            <span class="float-right display-5 opacity-5"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Lokasi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class MahasiswaController extends Controller
 {
@@ -15,9 +17,30 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::all();
-        return view('mahasiswa.index', compact(['mhs']));
+        $user = Auth::user(); 
+        $level = $user->level;
+    
+        if ($level === 'panitia') {
+            $mhs = Mahasiswa::all();
+        } elseif ($level === 'dpl') {
+            
+            if ($user->dosen && $user->dosen->penempatan) {
+                $lokasiDpl = $user->dosen->penempatan->lokasi_id; 
+                $mhs = Mahasiswa::where('lokasi_id', $lokasiDpl)->get();
+            } else {
+                
+                return redirect()->route('dashboard')->with('error', 'Data DPL atau penempatan tidak ditemukan.');
+            }
+        } else {
+            
+            return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+        }
+    
+        return view('mahasiswa.index', compact('mhs'));
     }
+    
+
+
 
     /**
      * Show the form for creating a new resource.

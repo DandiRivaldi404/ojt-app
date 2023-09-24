@@ -23,6 +23,6 @@ class Penempatan extends Model
     }
 
     public function dosen(){
-        return $this->belongsTo(Dosen::class, 'nidn');
+        return $this->belongsTo(Dosen::class, 'nidn','nidn');
     }
 }
