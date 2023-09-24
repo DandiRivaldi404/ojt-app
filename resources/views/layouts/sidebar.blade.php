@@ -50,7 +50,7 @@
                             <li><a href="{{ route('instansinilai.index') }}">Nilai</a></li>
                         </ul>
                         <ul aria-expanded="false">
-                            <li><a href="./index.html">Monitoring</a></li>
+                            <li><a href="{{ route('monitoring.index') }}">Monitoring</a></li>
                         </ul>
                     </li>
                     <li>

@@ -36,7 +36,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->tanggal}}</td>
-                                                <td>{{ $item->lokasi_id}}</td>
+                                                <td>{{ $item->lokasi->nama_instansi}}</td>
                                                 <td>{{ $item->keterangan}}</td>
                                                 <td>
                                                     {{-- <a href="{{ route('moni.show', $item->nim) }}" class="btn btn-success">Detail</a> --}}

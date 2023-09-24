@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jurnal;
+use App\Models\Lokasi;
 use Carbon\Carbon;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class JurnalController extends Controller
 {
@@ -13,11 +16,41 @@ class JurnalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jurnal = Jurnal::all();
-        return view('jurnal.index', compact(['jurnal']));
+
+        $lokasiId = $request->input('lokasi');
+
+        $jurnalQuery = Jurnal::query();
+
+        if ($lokasiId) {
+            $jurnalQuery->where('lokasi_id', $lokasiId);
+        }
+
+        $jurnal = $jurnalQuery->get();
+        $lokasiOptions = Lokasi::all();
+        return view('jurnal.index', compact(['jurnal', 'lokasiOptions']));
     }
+
+
+    public function filterSurat(Request $request)
+    {
+        $lokasiId = $request->input('lokasi');
+
+        // Jika opsi "Keseluruhan" dipilih (lokasiId kosong), ambil semua data jurnal
+        if ($lokasiId === 'keseluruhan' || $lokasiId === 'Keseluruhan') {
+            $jurnal = Jurnal::all();
+        } else {
+            // Jika lokasi dipilih, filter data berdasarkan lokasi_id
+            $jurnal = Jurnal::where('lokasi_id', $lokasiId)->get();
+        }
+
+        $lokasiOptions = Lokasi::all();
+
+        return view('jurnal.index', compact('jurnal', 'lokasiOptions'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

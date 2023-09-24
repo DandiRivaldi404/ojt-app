@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi;
 use App\Models\SuratIzin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,11 +15,41 @@ class SuratIzinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $surat = SuratIzin::all();
-        return view('surat.index', compact(['surat']));
+        $lokasiId = $request->input('lokasi');
+
+        $suratQuery = SuratIzin::query();
+
+        if ($lokasiId) {
+            $suratQuery->where('lokasi_id', $lokasiId);
+        }
+
+        $surat = $suratQuery->get();
+        $lokasiOptions = Lokasi::all();
+
+        return view('surat.index', compact(['surat', 'lokasiOptions']));
     }
+
+    public function filterSurat(Request $request)
+    {
+        $lokasiId = $request->input('lokasi');
+
+        // Jika opsi "Keseluruhan" dipilih (lokasiId kosong), ambil semua data surat izin
+        if ($lokasiId === 'keseluruhan' || $lokasiId === 'Keseluruhan') {
+            $surat = SuratIzin::all();
+        } else {
+            // Jika lokasi dipilih, filter data surat izin berdasarkan lokasi_id pada tabel mahasiswa
+            $surat = SuratIzin::whereHas('mahasiswa', function ($query) use ($lokasiId) {
+                $query->where('lokasi_id', $lokasiId);
+            })->get();
+        }
+
+        $lokasiOptions = Lokasi::all();
+
+        return view('surat.index', compact('surat', 'lokasiOptions'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

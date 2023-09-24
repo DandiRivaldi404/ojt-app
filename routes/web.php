@@ -19,6 +19,7 @@ use App\Http\Controllers\PenempatanLokasiController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SuratIzinController;
 use App\Http\Controllers\TugasAkhirController;
+use App\Models\Jurnal;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.login1');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -47,9 +48,12 @@ Route::resource('absensi', AbsenInstansiConroller::class);
 Route::resource('absenku', AbsenkuController::class);
 Route::resource('mahasiswa', MahasiswaController::class);
 
+Route::get('/filter_surat', [SuratIzinController::class, 'filterSurat'])->name('filter_surat');
 Route::put('surat/editstatus/{id_surat}', [SuratIzinController::class, 'editstatus'])->name('surat.editstatus');
 Route::resource('surat', SuratIzinController::class);
 
+// Route::get('/get_jurnal_by_lokasi', [JurnalController::class, 'getJurnalByLokasi'])->name('get_jurnal_by_lokasi');
+Route::get('/filter_jurnal', [JurnalController::class, 'filterJurnal'])->name('filter_jurnal');
 Route::resource('jurnal', JurnalController::class);
 Route::resource('tugasakhir', TugasAkhirController::class);
 Route::resource('instansinilai', InstansiNilaiController::class);

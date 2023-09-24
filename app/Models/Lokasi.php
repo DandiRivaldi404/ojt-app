@@ -24,4 +24,8 @@ class Lokasi extends Model
     public function koordinator(){
         return $this->hasOne(Koordinator::class);
     }
+
+    public function monitoring(){
+        return $this->hasOne(Monitoring::class);
+    }
 }

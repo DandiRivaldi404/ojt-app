@@ -16,4 +16,8 @@ class Monitoring extends Model
     public function dosen(){
         return $this->belongsTo(Dosen::class, 'nidn');
     }
+
+    public function lokasi(){
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
+    }
 }

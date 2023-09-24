@@ -12,27 +12,30 @@
             </div>
         </div>
 
-        @canany(['dpl-access'])
+        @canany(['dpl-access', 'admin-access'])
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-
-                                {{-- <form action="{{ route('absen.show') }}" method="GET"> --}}
-                                {{-- @csrf --}}
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="select2">Pilih Lokasi</label>
-                                        <select class="form-control" id="select2" name="option2">
-                                            <option value="option2_value1">Option 2 Value 1</option>
-                                            <option value="option2_value2">Option 2 Value 2</option>
-                                            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                        </select>
+                                <form action="{{ route('filter_jurnal') }}" method="GET">
+                                    @csrf
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label for="select2">Pilih Lokasi</label>
+                                            <select class="form-control" id="lokasi" name="lokasi" onchange="this.form.submit()">
+                                                <option value="">Pilih Lokasi</option>
+                                                @if (!$lokasiOptions->isEmpty())
+                                                    <option value="keseluruhan">Keseluruhan</option>
+                                                @endif
+                                                @foreach ($lokasiOptions as $lokasiOption)
+                                                    <option value="{{ $lokasiOption->id_lokasi }}">
+                                                        {{ $lokasiOption->nama_instansi }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary col-lg-12">Lihat</button>
-                                {{-- </form> --}}
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,8 +68,8 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->mahasiswa->nim }}</td>
                                                     <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
-                                                    <td>{{ $item->semester }}</td>
-                                                    <td> </td>
+                                                    <td>{{ $item->mahasiswa->semester }}</td>
+                                                    <td>{{ $item->mahasiswa->lokasi->nama_instansi }}</td>
                                                     <td>
                                                         <a href="" class="btn btn-rounded btn-outline-success">Detail</a>
                                                         {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
