@@ -33,15 +33,13 @@ class JurnalController extends Controller
     }
 
 
-    public function filterSurat(Request $request)
+    public function filterJurnal(Request $request)
     {
         $lokasiId = $request->input('lokasi');
 
-        // Jika opsi "Keseluruhan" dipilih (lokasiId kosong), ambil semua data jurnal
         if ($lokasiId === 'keseluruhan' || $lokasiId === 'Keseluruhan') {
             $jurnal = Jurnal::all();
         } else {
-            // Jika lokasi dipilih, filter data berdasarkan lokasi_id
             $jurnal = Jurnal::where('lokasi_id', $lokasiId)->get();
         }
 

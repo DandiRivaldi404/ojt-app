@@ -35,9 +35,15 @@
                                         @foreach ($monitoring as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->tanggal}}</td>
-                                                <td>{{ $item->lokasi->nama_instansi}}</td>
-                                                <td>{{ $item->keterangan}}</td>
+                                                <td>{{ $item->tanggal }}</td>
+                                                <td>
+                                                    @if (isset($item->lokasi) && isset($item->lokasi->nama_instansi))
+                                                        {{ $item->lokasi->nama_instansi }}
+                                                    @else
+                                                        Belum ada instansi
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->keterangan }}</td>
                                                 <td>
                                                     {{-- <a href="{{ route('moni.show', $item->nim) }}" class="btn btn-success">Detail</a> --}}
                                                     {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
