@@ -31,7 +31,7 @@ class TugasAkhirController extends Controller
             $tugasakhir->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
                 $query->where('lokasi_id', $lokasiDpl);
             });
-        } elseif ($user->level === 'mahasiswa') {
+        } elseif ($user->level === 'mhs') {
             $mahasiswa = $user->mahasiswa;
 
             if (!$mahasiswa->lokasi) {
