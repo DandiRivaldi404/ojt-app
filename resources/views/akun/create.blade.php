@@ -2,8 +2,8 @@
 
 @section('content')
     <!--**********************************
-                            Content body start
-                        ***********************************-->
+                                Content body start
+                            ***********************************-->
     <div class="content-body">
 
         <div class="row page-titles mx-0">
@@ -70,9 +70,20 @@
                                     </div>
 
                                     <div class="form-group row" id="nidn-group" style="display: none;">
-                                        <label class="col-lg-4 col-form-label" for="nidn">NIDN <span class="text-danger">*</span></label>
+                                        <label class="col-lg-4 col-form-label" for="nidn">NIDN <span
+                                                class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="nidn" name="nidn" placeholder="Masukan NIDN">
+                                            <input type="text" class="form-control" id="nidn" name="nidn"
+                                                placeholder="Masukan NIDN">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" id="nim-group" style="display: none;">
+                                        <label class="col-lg-4 col-form-label" for="nim">NIM <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" id="nim" name="nim"
+                                                placeholder="Masukan NIM">
                                         </div>
                                     </div>
 
@@ -95,16 +106,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             const levelSelect = document.getElementById('level');
             const nidnGroup = document.getElementById('nidn-group');
+            const nimGroup = document.getElementById('nim-group');
 
-            function toggleNidnField() {
+            function toggleFields() {
                 if (levelSelect.value === 'dpl' || levelSelect.value === 'kaprodi') {
                     nidnGroup.style.display = 'block';
+                    nimGroup.style.display = 'none';
+                } else if (levelSelect.value === 'mhs') {
+                    nidnGroup.style.display = 'none';
+                    nimGroup.style.display = 'block';
                 } else {
                     nidnGroup.style.display = 'none';
+                    nimGroup.style.display = 'none';
                 }
             }
-            toggleNidnField();
-            levelSelect.addEventListener('change', toggleNidnField);
+
+            toggleFields();
+            levelSelect.addEventListener('change', toggleFields);
         });
     </script>
 @endsection

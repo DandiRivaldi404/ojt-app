@@ -2,40 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AbsenInstansi;
-use App\Models\Mahasiswa;
-use Carbon\Carbon;
+use App\Models\Lokasi;
+use App\Models\Nilai;
 use Illuminate\Http\Request;
 
-class AbsenInstansiConroller extends Controller
+class NilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function index()
+    public function index(Request $request)
     {
-        $currentMonth = Carbon::now()->format('m');
-        $currentYear = Carbon::now()->format('Y');
+        $lokasiId = $request->input('lokasi');
 
-        $startDate = Carbon::createFromDate($currentYear, $currentMonth, 1);
-        $endDate = $startDate->copy()->endOfMonth();
+        $nilaiQuery = Nilai::query();
 
-        $dates = [];
-
-        for ($date = $startDate; $date->lte($endDate); $date->addDay()) {
-            $dates[] = $date->format('Y-m-d');
+        if ($lokasiId) {
+            $nilaiQuery->where('lokasi_id', $lokasiId);
         }
 
-        $absensi = AbsenInstansi::all()->groupBy('nim_id'); // Ubah menjadi nim_id jika Anda ingin kelompokkan berdasarkan nim_id
+        $nilai = $nilaiQuery->get();
+        $lokasiOptions = Lokasi::all();
 
-        return view('absensi.index', compact(['absensi', 'dates']));
+        return view('nilai.index', compact(['nilai', 'lokasiOptions']));
     }
 
+    public function filterNilai(Request $request)
+    {
+        $lokasiId = $request->input('lokasi');
 
+        if ($lokasiId === 'keseluruhan' || $lokasiId === 'Keseluruhan') {
+            $nilai = Nilai::all();
+        } else {
+            $nilai = Nilai::whereHas('mahasiswa', function ($query) use ($lokasiId) {
+                $query->where('lokasi_id', $lokasiId);
+            })->get();
+        }
 
+        $lokasiOptions = Lokasi::all();
+
+        return view('nilai.index', compact(['nilai', 'lokasiOptions']));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -44,8 +53,7 @@ class AbsenInstansiConroller extends Controller
      */
     public function create()
     {
-        $mahasiswa = Mahasiswa::all();
-        return view('absensi.create', compact(['mahasiswa']));
+        //
     }
 
     /**
@@ -56,24 +64,8 @@ class AbsenInstansiConroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'absensi' => 'required|array', 
-            'absensi.*.nim_id' => 'required',
-            'absensi.*.absen' => 'required|string|in:hadir,alpa,sakit,izin', 
-        ]);
-
-        $absensiData = $request->input('absensi');
-
-        foreach ($absensiData as &$data) {
-            $data['tanggal'] = now()->format('Y-m-d'); 
-            AbsenInstansi::create($data);
-        }
-
-        return redirect()->route('absensi.index');
+        //
     }
-
-
-
 
     /**
      * Display the specified resource.

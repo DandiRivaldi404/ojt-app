@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('filter_nilai_instansi') }}" method="GET">
+                            <form action="{{ route('filter_nilai') }}" method="GET">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
@@ -49,36 +49,39 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Daftar Nilai Peserta OJT</h4>
-                            <p>Lokasi : </p>
-                            <p>Pembimbing Instansi : </p>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Peserta</th>
-                                            <th>NK1</th>
-                                            <th>NK2</th>
-                                            <th>NK3</th>
-                                            <th>NK4</th>
-                                            <th>NK5</th>
-                                            <th>JML</th>
-                                            <th>IP</th>
+                                            <th>Lokasi</th>
+                                            <th>Skil Input Data</th>
+                                            <th>Kehadiran</th>
+                                            <th>Np1</th>
+                                            <th>Np2</th>
+                                            <th>Hasil Inputan</th>
+                                            <th>6 Pekerjaan</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($mhs as $item)
-                                      <tr>
-                                          <td>{{ $loop->iteration }}</td>
-                                          <td>{{ $item->nim}}</td>
-                                          <td>{{ $item->nama_mahasiswa }}</td>
-                                          <td>{{ $item->semester}}</td>
-                                          <td>
-                                              <a href="{{ route('mahasiswa.show', $item->nim) }}" class="btn btn-success">Detail</a>
-                                          </td>
-                                      </tr>
-                                  @endforeach --}}
+                                        @foreach ($nilai as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
+                                                <td>{{ $item->mahasiswa->lokasi_id }}</td>
+                                                <td>{{ $item->skil_input_data }}</td>
+                                                <td>{{ $item->kehadiran }}</td>
+                                                <td>{{ $item->np1 }}</td>
+                                                <td>{{ $item->np2 }}</td>
+                                                <td>{{ $item->hasil_inputan }}</td>
+                                                <td>{{ $item->pekerjaan }}</td>
+                                                <td>
+                                                   
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

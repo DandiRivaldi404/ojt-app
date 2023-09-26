@@ -45,9 +45,9 @@ class AbsenkuController extends Controller
             'lokasi_id' => '',
             'nim_id' => '',
         ]);
-        // dd($ValidatedData);
 
         $ValidatedData['nim_id'] = Auth()->user()->mahasiswa->nim;
+        $ValidatedData['lokasi_id'] = Auth()->user()->mahasiswa->lokasi_id;
 
         if ($request->file('foto')) {
             $uploadPath = 'post-absenku';

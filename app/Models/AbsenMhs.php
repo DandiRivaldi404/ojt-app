@@ -17,4 +17,9 @@ class AbsenMhs extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'nim_id');
     }
+
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
+    }
 }

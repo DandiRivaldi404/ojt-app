@@ -138,7 +138,7 @@
 
                             <hr>
                             @if ($mhs->pas_photo)
-                                <p>Pas Photo: <a href="{{ asset(mhs->pas_photo) }}" target="_blank">Lihat File</a></p>
+                                <p>Pas Photo: <a href="{{ asset($mhs->pas_photo) }}" target="_blank">Lihat File</a></p>
                             @else
                                 <p>Pas Photo: Belum ada file yang diunggah.</p>
                             @endif

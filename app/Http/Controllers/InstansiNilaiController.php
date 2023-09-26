@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi;
+use App\Models\NilaiInstansi;
 use Illuminate\Http\Request;
 
 class InstansiNilaiController extends Controller
@@ -11,9 +13,37 @@ class InstansiNilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('instansinilai.index');
+        $lokasiId = $request->input('lokasi');
+
+        $nilaiQuery = NilaiInstansi::query();
+
+        if ($lokasiId) {
+            $nilaiQuery->where('lokasi_id', $lokasiId);
+        }
+
+        $nilai = $nilaiQuery->get();
+        $lokasiOptions = Lokasi::all();
+
+        return view('instansinilai.index', compact(['nilai', 'lokasiOptions']));
+    }
+
+    public function filterNilaiInstansi(Request $request)
+    {
+        $lokasiId = $request->input('lokasi');
+
+        if ($lokasiId === 'keseluruhan' || $lokasiId === 'Keseluruhan') {
+            $nilai = NilaiInstansi::all();
+        } else {
+            $nilai = NilaiInstansi::whereHas('mahasiswa', function ($query) use ($lokasiId) {
+                $query->where('lokasi_id', $lokasiId);
+            })->get();
+        }
+
+        $lokasiOptions = Lokasi::all();
+
+        return view('instansinilai.index', compact(['nilai', 'lokasiOptions']));
     }
 
     /**

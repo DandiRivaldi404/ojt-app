@@ -47,7 +47,8 @@ class AkunController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => 'required|max:8',
             'level' => 'required',
-            'nidn' => ''
+            'nidn' => '',
+            'nim' => ''
         ]);
     
         $validatedData['password'] = Hash::make($request->password);
@@ -57,9 +58,11 @@ class AkunController extends Controller
         if ($validatedData['level'] === 'mhs') {
             $mhsData = [
                 'user_id' => $user->id,
-                'nama_mahasiswa' => $validatedData['name']
+                'nama_mahasiswa' => $validatedData['name'],
+                'nim' => $request->input('nim')
             ];
     
+            // dd($mhsData);
             Mahasiswa::create($mhsData);
         } elseif ($validatedData['level'] === 'dpl' || $validatedData['level'] === 'kaprodi') {
             $dosenData = [

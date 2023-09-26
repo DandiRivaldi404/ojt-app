@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Faker\Core\Uuid;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 
 class Mahasiswa extends Model
 {
-    // use HasFactory, HasUuids;
     protected $table = 'mahasiswa';
     protected $primaryKey = 'nim';
-    protected $fillable = ['nama_mahasiswa','semester',
+    public $incrementing = false;
+    protected $fillable = ['nim','nama_mahasiswa','semester',
                             'jenis_kelamin','tempat_lahir',
                             'tanggal_lahir','agama',
                             'alamat','no_hp',
@@ -31,6 +28,14 @@ class Mahasiswa extends Model
 
     public function absensiinstansi(){
         return $this->hasOne(AbsenInstansi::class);
+    }
+
+    public function nilai(){
+        return $this->hasOne(Nilai::class);
+    }
+
+    public function nilaiinstansi(){
+        return $this->hasOne(NilaiInstansi::class);
     }
 
     public function tugasakhir(){

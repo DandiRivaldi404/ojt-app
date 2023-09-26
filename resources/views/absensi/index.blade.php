@@ -11,17 +11,18 @@
             <div class="row">
                 <div class="col-12">
 
-                    <div class="card">
-                        <div class="card-body">
-                            <a style="float: right" href="{{ route('absensi.create') }}"
-                                class="btn mb-1 btn-rounded btn-outline-primary">Absensi</a>
+                    @canany(['instansi-access'])
+                        <div class="card">
+                            <div class="card-body">
+                                <a style="float: right" href="{{ route('absensi.create') }}"
+                                    class="btn mb-1 btn-rounded btn-outline-primary">Absensi</a>
+                            </div>
                         </div>
-                    </div>
+                    @endcanany
 
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">@yield('title')</h4>
-                            <!-- Tambahkan nama bulan di sini -->
                             <div class="month-name">
                                 {{ \Carbon\Carbon::now()->format('F Y') }}
                             </div>
@@ -66,7 +67,7 @@
             </div>
         </div>
     </div>
-    
+
     <style>
         .odd {
             background-color: #f9f9f9;

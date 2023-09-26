@@ -18,7 +18,7 @@
                             <li><a href="{{ route('akun.index') }}">User</a></li>
                         </ul>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('mdata.index')}}">Master Data</a></li>
+                            <li><a href="{{ route('mdata.index') }}">Master Data</a></li>
                         </ul>
                     </li>
                     <li>
@@ -34,8 +34,15 @@
                             <li><a href="{{ route('mahasiswa.index') }}">Mahasiswa</a></li>
                         </ul>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('listabsen.index') }}">Absen</a></li>
+                            <li><a href="{{ route('absenku.index') }}">Absen Mahasiswa</a></li>
                         </ul>
+                        {{-- <ul aria-expanded="false">
+                            <li><a href="{{ route('listabsen.index') }}">Absen</a></li>
+                        </ul> --}}
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('absensi.index') }}">Absen Instansi</a></li>
+                        </ul>
+
                         <ul aria-expanded="false">
                             <li>
                                 <a href="{{ route('surat.index') }}">
@@ -47,7 +54,10 @@
                             <li><a href="{{ route('jurnal.index') }}">Jurnal</a></li>
                         </ul>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('instansinilai.index') }}">Nilai</a></li>
+                            <li><a href="{{ route('instansinilai.index') }}">Nilai Instansi</a></li>
+                        </ul>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('nilai.index') }}">Nilai Kampus</a></li>
                         </ul>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('monitoring.index') }}">Monitoring</a></li>

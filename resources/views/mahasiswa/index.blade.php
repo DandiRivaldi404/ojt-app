@@ -38,12 +38,20 @@
                                         @foreach ($mhs as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->nim}}</td>
+                                                <td>{{ $item->nim }}</td>
                                                 <td>{{ $item->nama_mahasiswa }}</td>
-                                                <td>{{ $item->semester}}</td>
-                                                <td>{{ $item->lokasi->nama_instansi}}</td>
+                                                <td>{{ $item->semester }}</td>
                                                 <td>
-                                                    <a href="{{ route('mahasiswa.show', $item->nim) }}" class="btn btn-success">Detail</a>
+                                                    @if (isset($item->lokasi) && isset($item->lokasi->nama_instansi))
+                                                        {{ $item->lokasi->nama_instansi }}
+                                                    @else
+                                                        Belum Memiliki Lokasi
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    <a href="{{ route('mahasiswa.show', $item->nim) }}"
+                                                        class="btn btn-success">Detail</a>
                                                     {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
                                                         <a href="{{ route('akun.edit', $item->id) }}"
                                                             class="btn btn-rounded btn-outline-primary">Edit Data</a>

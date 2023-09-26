@@ -17,18 +17,23 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Absenku</h4>
+                            <h4 class="card-title">Absen</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
-                                    <a style="float: right" href="{{ route('absenku.create') }}"
-                                        class="btn mb-1 btn-rounded btn-outline-primary">Absensi</a>
+                                    @canany(['mhs-access'])
+                                        <a style="float: right" href="{{ route('absenku.create') }}"
+                                            class="btn mb-1 btn-rounded btn-outline-primary">Absensi</a>
+                                    @endcanany
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Mahasiswa</th>
                                             <th>Tanggal</th>
                                             <th>Keterangan</th>
-                                            <th>Aksi</th>
+                                            <th>Lokasi</th>
+                                            @canany(['mhs-access'])
+                                                <th>Aksi</th>
+                                            @endcanany
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -36,10 +41,14 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
-                                                <td>{{ $item->tanggal}}</td>
-                                                <td>{{ $item->keterangan}}</td>
-                                                <td>
-                                                    {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
+                                                <td>{{ $item->tanggal }}</td>
+                                                <td>{{ $item->keterangan }}</td>
+                                                @canany(['admin-access'])
+                                                    <td>{{ $item->lokasi->nama_instansi }}</td>
+                                                @endcanany
+                                                @canany(['mhs-access'])
+                                                    <td>
+                                                        {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
                                                         <a href="{{ route('akun.edit', $item->id) }}"
                                                             class="btn btn-rounded btn-outline-primary">Edit Data</a>
                                                         @csrf
@@ -47,7 +56,8 @@
                                                         <button type="submit"
                                                             class="btn btn-rounded btn-outline-danger">Hapus Data</button>
                                                     </form> --}}
-                                                </td>
+                                                    </td>
+                                                @endcanany
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -15,6 +15,7 @@ use App\Http\Controllers\MdataController;
 use App\Http\Controllers\MlokasiController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MpenempatanController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PenempatanLokasiController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SuratIzinController;
@@ -56,7 +57,10 @@ Route::resource('surat', SuratIzinController::class);
 Route::get('/filter_jurnal', [JurnalController::class, 'filterJurnal'])->name('filter_jurnal');
 Route::resource('jurnal', JurnalController::class);
 Route::resource('tugasakhir', TugasAkhirController::class);
+Route::get('/filter_nilai_instansi', [InstansiNilaiController::class, 'filterNilaiInstansi'])->name('filter_nilai_instansi');
 Route::resource('instansinilai', InstansiNilaiController::class);
+Route::get('/filter_nilai', [NilaiController::class, 'filterNilai'])->name('filter_nilai');
+Route::resource('nilai', NilaiController::class);
 Route::resource('monitoring', MonitoringController::class);
 
 Route::resource('mdata', MdataController::class);
