@@ -12,6 +12,8 @@
             </div>
         </div>
 
+
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -30,8 +32,8 @@
                                             <th>Nama Mahasiswa</th>
                                             <th>Tanggal</th>
                                             <th>Keterangan</th>
-                                            <th>Lokasi</th>
-                                            @canany(['mhs-access'])
+                                            @canany(['admin-access', 'dpl-access'])
+                                                <th>Lokasi</th>
                                                 <th>Aksi</th>
                                             @endcanany
                                         </tr>
@@ -43,10 +45,9 @@
                                                 <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                                                 <td>{{ $item->tanggal }}</td>
                                                 <td>{{ $item->keterangan }}</td>
-                                                @canany(['admin-access'])
+                                                @canany(['admin-access','dpl-access'])
                                                     <td>{{ $item->lokasi->nama_instansi }}</td>
-                                                @endcanany
-                                                @canany(['mhs-access'])
+                                               
                                                     <td>
                                                         {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
                                                         <a href="{{ route('akun.edit', $item->id) }}"

@@ -15,21 +15,29 @@ class SuratIzinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $lokasiId = $request->input('lokasi');
+        $user = Auth::user();
 
-        $suratQuery = SuratIzin::query();
+        if ($user->level === 'panitia') {
+            $surat = SuratIzin::all();
+            $lokasiOptions = Lokasi::all();
 
-        if ($lokasiId) {
-            $suratQuery->where('lokasi_id', $lokasiId);
+            return view('surat.index', compact('surat', 'lokasiOptions'));
         }
 
-        $surat = $suratQuery->get();
+        $mahasiswa = $user->mahasiswa;
+
+        if (!$mahasiswa->lokasi) {
+            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+        }
+
+        $surat = SuratIzin::where('nim_id', $mahasiswa->nim)->get();
         $lokasiOptions = Lokasi::all();
 
-        return view('surat.index', compact(['surat', 'lokasiOptions']));
+        return view('surat.index', compact('surat', 'lokasiOptions'));
     }
+
 
     public function filterSurat(Request $request)
     {

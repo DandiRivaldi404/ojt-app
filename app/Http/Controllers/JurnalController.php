@@ -7,6 +7,7 @@ use App\Models\Lokasi;
 use Carbon\Carbon;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class JurnalController extends Controller
@@ -16,21 +17,29 @@ class JurnalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        $user = Auth::user();
 
-        $lokasiId = $request->input('lokasi');
+        if ($user->level === 'panitia') {
+            $jurnal = Jurnal::all();
+            $lokasiOptions = Lokasi::all();
 
-        $jurnalQuery = Jurnal::query();
-
-        if ($lokasiId) {
-            $jurnalQuery->where('lokasi_id', $lokasiId);
+            return view('jurnal.index', compact('jurnal', 'lokasiOptions'));
         }
 
-        $jurnal = $jurnalQuery->get();
+        $mahasiswa = $user->mahasiswa;
+
+        if (!$mahasiswa->lokasi) {
+            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+        }
+
+        $jurnal = Jurnal::where('nim_id', $mahasiswa->nim)->get();
         $lokasiOptions = Lokasi::all();
-        return view('jurnal.index', compact(['jurnal', 'lokasiOptions']));
+
+        return view('jurnal.index', compact('jurnal', 'lokasiOptions'));
     }
+
 
 
     public function filterJurnal(Request $request)

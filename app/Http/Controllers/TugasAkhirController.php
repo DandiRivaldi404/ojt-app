@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TugasAkhir;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TugasAkhirController extends Controller
 {
@@ -15,9 +16,26 @@ class TugasAkhirController extends Controller
      */
     public function index()
     {
-        $tugasakhir = TugasAkhir::all();
-        return view('tugasakhir.index', compact(['tugasakhir']));
+        $user = Auth::user();
+
+        if ($user->level === 'panitia') {
+            $tugasakhir = TugasAkhir::all();
+
+            return view('tugasakhir.index', compact('tugasakhir'));
+        }
+
+        $mahasiswa = $user->mahasiswa;
+
+        if (!$mahasiswa->lokasi) {
+            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+        }
+
+        $tugasakhir = TugasAkhir::where('nim_id', $mahasiswa->nim)->get();
+
+        return view('tugasakhir.index', compact('tugasakhir'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

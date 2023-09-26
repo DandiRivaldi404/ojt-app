@@ -12,36 +12,38 @@
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
+        @canany(['instansi-access', 'admin-access'])
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <form action="{{ route('filter_surat') }}" method="GET">
-                                @csrf
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="select2">Pilih Lokasi</label>
-                                        <select class="form-control" id="lokasi" name="lokasi"
-                                            onchange="this.form.submit()">
-                                            <option value="">Pilih Lokasi</option>
-                                            @if (!$lokasiOptions->isEmpty())
-                                                <option value="keseluruhan">Keseluruhan</option>
-                                            @endif
-                                            @foreach ($lokasiOptions as $lokasiOption)
-                                                <option value="{{ $lokasiOption->id_lokasi }}">
-                                                    {{ $lokasiOption->nama_instansi }}</option>
-                                            @endforeach
-                                        </select>
+                                <form action="{{ route('filter_surat') }}" method="GET">
+                                    @csrf
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label for="select2">Pilih Lokasi</label>
+                                            <select class="form-control" id="lokasi" name="lokasi"
+                                                onchange="this.form.submit()">
+                                                <option value="">Pilih Lokasi</option>
+                                                @if (!$lokasiOptions->isEmpty())
+                                                    <option value="keseluruhan">Keseluruhan</option>
+                                                @endif
+                                                @foreach ($lokasiOptions as $lokasiOption)
+                                                    <option value="{{ $lokasiOption->id_lokasi }}">
+                                                        {{ $lokasiOption->nama_instansi }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endcanany
 
         <div class="container-fluid">
             <div class="row">
@@ -51,8 +53,10 @@
                             <h4 class="card-title">Surat Izin</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
-                                    <a style="float: right" href="{{ route('surat.create') }}"
-                                        class="btn mb-1 btn-rounded btn-outline-primary">Buat Surat</a>
+                                    @canany(['mhs-access'])
+                                        <a style="float: right" href="{{ route('surat.create') }}"
+                                            class="btn mb-1 btn-rounded btn-outline-primary">Buat Surat</a>
+                                    @endcanany
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -80,7 +84,7 @@
                                                         <button type="submit"
                                                             class="btn btn-rounded btn-outline-danger">Hapus Data</button>
                                                     </form> --}}
-                                                    @canany(['admin-access'])
+                                                    @canany(['admin-access','dpl-access'])
                                                         <form class="update-pembayaran-form"
                                                             action="{{ route('surat.editstatus', $item->id_surat) }}"
                                                             method="POST">

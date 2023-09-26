@@ -15,11 +15,23 @@ class AbsenkuController extends Controller
      */
     public function index()
     {
-        // $absenku = AbsenMhs::all();
-        $absenku = AbsenMhs::where('nim_id', Auth::user()->mahasiswa->nim)->get();
+        $user = Auth::user();
 
-        return view('absenku.index', compact(['absenku']));
+        if ($user->level === 'panitia') {
+            $absenku = AbsenMhs::all();
+            return view('absenku.index', compact('absenku'));
+        }
+        $mahasiswa = $user->mahasiswa;
+
+        if (!$mahasiswa->lokasi) {
+            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+        }
+
+        $absenku = AbsenMhs::where('nim_id', $mahasiswa->nim)->get();
+        return view('absenku.index', compact('absenku'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
