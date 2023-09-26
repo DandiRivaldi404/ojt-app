@@ -118,9 +118,9 @@
                                                                 </td>
                                                                 <td>
                                                                     <form
-                                                                        action="{{ route('mpenempatan.destroy', $item->nidn) }}"
+                                                                        action="{{ route('mpenempatan.destroy', $item->id_penempatan) }}"
                                                                         method="POST">
-                                                                        <a href="{{ route('mpenempatan.edit', $item->nidn) }}"
+                                                                        <a href="{{ route('mpenempatan.edit', $item->id_penempatan) }}"
                                                                             class="btn btn-rounded btn-outline-primary">Edit
                                                                             Data</a>
                                                                         @csrf

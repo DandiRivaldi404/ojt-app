@@ -120,12 +120,12 @@ class AkunController extends Controller
     {
         $ValidatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required',
             'level' => 'required'
         ]);
 
-        $ValidatedData['password'] = Hash::make($request->password);
+        // $ValidatedData['password'] = Hash::make($request->password);
 
         // User::create($ValidatedData);
         User::where('id', $akun->id)->update($ValidatedData);

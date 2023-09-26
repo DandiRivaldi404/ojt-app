@@ -5,6 +5,7 @@ use App\Http\Controllers\AbsenkuController;
 use App\Http\Controllers\AbsenMhsController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\InstansiNilaiController;
 use App\Http\Controllers\JurnalController;
@@ -68,5 +69,6 @@ Route::resource('mlokasi', MlokasiController::class);
 Route::resource('mpenempatan', MpenempatanController::class);
 Route::resource('koordinator', KoordinatorController::class);
 Route::resource('penempatanlokasi', PenempatanLokasiController::class);
+// Route::resource('dosen', DosenController::class);
 
 require __DIR__ . '/auth.php';

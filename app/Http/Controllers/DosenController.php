@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Lokasi;
-use App\Models\Monitoring;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class MonitoringController extends Controller
+class DosenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        $monitoring = Monitoring::all();
-        return view('monitoring.index', compact(['monitoring']));
+        //
     }
 
     /**
@@ -27,19 +25,8 @@ class MonitoringController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $lokasi = [];
-
-        if ($user->level === 'dpl') {
-            $lokasiDpl = optional($user->dosen->penempatan)->lokasi;
-            if ($lokasiDpl) {
-                $lokasi[] = $lokasiDpl;
-            }
-        }
-
-        return view('monitoring.create', compact('lokasi'));
+        //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -49,18 +36,7 @@ class MonitoringController extends Controller
      */
     public function store(Request $request)
     {
-        $ValidatedData = $request->validate([
-            'tanggal' => '',
-            'lokasi_id' => '',
-            'keterangan' => '',
-            'nidn' => '',
-        ]);
-
-        $ValidatedData['nidn'] = Auth()->user()->dosen->nidn;
-
-
-        Monitoring::create($ValidatedData);
-        return redirect()->route('monitoring.index');
+        //
     }
 
     /**
@@ -80,9 +56,10 @@ class MonitoringController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dosen $dosen)
     {
-        //
+        $lokasi = Lokasi::all();
+        return view('dosen.edit', compact(['dosen','lokasi']));
     }
 
     /**
@@ -92,9 +69,15 @@ class MonitoringController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Dosen $dosen)
     {
-        //
+        $ValidatedData = $request->validate([
+            'nama_lengkap' => '',
+            'alamat' => '',
+            'lokasi_id' => ''
+        ]);
+        Dosen::where('nidn', $dosen->nidn)->update($ValidatedData);
+        return view('dosen.edit', compact(['dosen']));
     }
 
     /**

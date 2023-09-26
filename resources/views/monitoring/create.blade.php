@@ -40,9 +40,10 @@
                                         <div class="col-lg-6">
                                             <select class="form-control" id="lokasi_id" name="lokasi_id">
                                                 <option value="">Please select</option>
-                                                <option value="panitia">Panitia</option>
-                                                <option value="mhs">Mahasiswa</option>
-                                                <option value="instansi">Instansi</option>
+                                                @foreach ($lokasi as $itm)
+                                                    <option value="{{$itm->id_lokasi}}">{{$itm->nama_instansi}}</option>
+                                                @endforeach
+
                                             </select>
                                         </div>
                                     </div>

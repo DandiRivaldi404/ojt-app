@@ -23,7 +23,7 @@ class MpenempatanController extends Controller
         $lokasi = Lokasi::all();
         $penempatan = Penempatan::all();
         $koordinator = Koordinator::all();
-        return view('mpenempatan.index', compact(['mhs', 'lokasi', 'dosen','penempatan','koordinator']));
+        return view('mpenempatan.index', compact(['mhs', 'lokasi', 'dosen', 'penempatan', 'koordinator']));
     }
 
     /**
@@ -72,9 +72,10 @@ class MpenempatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Penempatan $mpenempatan)
     {
-        //
+        $lokasi = Lokasi::all();
+        return view('mpenempatan.edit', compact(['mpenempatan', 'lokasi']));
     }
 
     /**
@@ -84,9 +85,16 @@ class MpenempatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Penempatan $mpenempatan)
     {
-        //
+
+        $ValidatedData = $request->validate([
+            'nidn' => '',
+            'lokasi_id' => ''
+        ]);
+
+        Penempatan::where('id_penempatan', $mpenempatan->id_penempatan)->update($ValidatedData);
+        return redirect()->route('mpenempatan.index');
     }
 
     /**
