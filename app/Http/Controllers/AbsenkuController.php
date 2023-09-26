@@ -15,7 +15,9 @@ class AbsenkuController extends Controller
      */
     public function index()
     {
-        $absenku = AbsenMhs::all();
+        // $absenku = AbsenMhs::all();
+        $absenku = AbsenMhs::where('nim_id', Auth::user()->mahasiswa->nim)->get();
+
         return view('absenku.index', compact(['absenku']));
     }
 

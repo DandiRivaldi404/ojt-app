@@ -19,7 +19,11 @@
                             <h4>Penempatan Lokasi</h4>
                             <h2 class="text-center">
                                 <p>
-                                    {{ auth()->user()->mahasiswa->lokasi->nama_instansi }}
+                                    @if (auth()->user()->mahasiswa->lokasi)
+                                        {{ auth()->user()->mahasiswa->lokasi->nama_instansi }}
+                                    @else
+                                        Data lokasi tidak tersedia.
+                                    @endif
                                 </p>
                             </h2>
                         </div>
@@ -27,6 +31,7 @@
                 </div>
             </div>
         </div>
+
 
 
     </div>
