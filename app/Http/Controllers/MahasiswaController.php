@@ -27,7 +27,7 @@ class MahasiswaController extends Controller
             $lokasiDpl = $user->dosen->penempatan->lokasi_id; 
             $mhs = Mahasiswa::where('lokasi_id', $lokasiDpl)->get();
         } else {
-            return redirect()->route('dashboard')->with('error', 'Data DPL atau penempatan tidak ditemukan.');
+            return redirect()->route('dashboard')->with('error', 'Anda Belum Memiliki Lokasi Penempatan');
         }
     } elseif ($level === 'instansi') {
         if($user->koordinator && $user->koordinator->lokasi) {

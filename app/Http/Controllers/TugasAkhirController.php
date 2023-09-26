@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi;
 use App\Models\TugasAkhir;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,23 +18,55 @@ class TugasAkhirController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $tugasakhir = TugasAkhir::query();
+        $lokasiOptions = Lokasi::all();
 
-        if ($user->level === 'panitia') {
-            $tugasakhir = TugasAkhir::all();
+        if ($user->level === 'dpl') {
+            $lokasiDpl = optional($user->dosen->penempatan)->lokasi_id;
 
-            return view('tugasakhir.index', compact('tugasakhir'));
+            if (!$lokasiDpl) {
+                return redirect()->route('dashboard')->with('error', 'Anda belum memiliki penempatan.');
+            }
+
+            $tugasakhir->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
+                $query->where('lokasi_id', $lokasiDpl);
+            });
+        } elseif ($user->level === 'mahasiswa') {
+            $mahasiswa = $user->mahasiswa;
+
+            if (!$mahasiswa->lokasi) {
+                return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+            }
+
+            $tugasakhir->where('nim_id', $mahasiswa->nim);
         }
 
-        $mahasiswa = $user->mahasiswa;
+        $tugasakhir = $tugasakhir->get();
 
-        if (!$mahasiswa->lokasi) {
-            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
-        }
-
-        $tugasakhir = TugasAkhir::where('nim_id', $mahasiswa->nim)->get();
-
-        return view('tugasakhir.index', compact('tugasakhir'));
+        return view('tugasakhir.index', compact('tugasakhir', 'lokasiOptions'));
     }
+
+    // public function index()
+    // {
+    //     $user = Auth::user();
+    //     $tugasakhir = TugasAkhir::query();
+
+    //     if ($user->level === 'panitia') {
+    //         $tugasakhir = TugasAkhir::all();
+
+    //         return view('tugasakhir.index', compact('tugasakhir'));
+    //     }
+
+    //     $mahasiswa = $user->mahasiswa;
+
+    //     if (!$mahasiswa->lokasi) {
+    //         return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+    //     }
+
+    //     $tugasakhir = TugasAkhir::where('nim_id', $mahasiswa->nim)->get();
+
+    //     return view('tugasakhir.index', compact('tugasakhir'));
+    // }
 
 
 

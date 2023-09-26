@@ -17,28 +17,38 @@ class JurnalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = Auth::user();
-
-        if ($user->level === 'panitia') {
-            $jurnal = Jurnal::all();
-            $lokasiOptions = Lokasi::all();
-
-            return view('jurnal.index', compact('jurnal', 'lokasiOptions'));
-        }
-
-        $mahasiswa = $user->mahasiswa;
-
-        if (!$mahasiswa->lokasi) {
-            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
-        }
-
-        $jurnal = Jurnal::where('nim_id', $mahasiswa->nim)->get();
+        $jurnal = Jurnal::query();
         $lokasiOptions = Lokasi::all();
+
+        if ($user->level === 'dpl') {
+            $lokasiDpl = optional($user->dosen->penempatan)->lokasi_id;
+
+            if (!$lokasiDpl) {
+                return redirect()->route('dashboard')->with('error', 'Anda belum memiliki penempatan.');
+            }
+
+            $jurnal->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
+                $query->where('lokasi_id', $lokasiDpl);
+            });
+        } elseif ($user->level === 'mahasiswa') {
+            $mahasiswa = $user->mahasiswa;
+
+            if (!$mahasiswa->lokasi) {
+                return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
+            }
+
+            $jurnal->where('nim_id', $mahasiswa->nim);
+        }
+
+        $jurnal = $jurnal->get();
 
         return view('jurnal.index', compact('jurnal', 'lokasiOptions'));
     }
+
 
 
 
