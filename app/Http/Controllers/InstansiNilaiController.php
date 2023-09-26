@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lokasi;
+use App\Models\Mahasiswa;
 use App\Models\NilaiInstansi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstansiNilaiController extends Controller
 {
@@ -52,9 +54,14 @@ class InstansiNilaiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
+{
+    
+    $lokasiKoordinator = Auth::user()->koordinator->lokasi_id;
+    $mhs = Mahasiswa::where('lokasi_id', $lokasiKoordinator)->get();
+
+    return view('instansinilai.create', compact('mhs'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +71,21 @@ class InstansiNilaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ValidatedData = $request->validate([
+            'nim_id' => '',
+            'koordinator_id' => '',
+            'nk1' => '',
+            'nk2' => '',
+            'nk3' => '',
+            'nk4' => '',
+            'nk5' => '',
+            'ip' => '',
+        ]);
+
+        $ValidatedData['koordinator_id'] = Auth()->user()->koordinator->id_koordinator;
+
+        NilaiInstansi::create($ValidatedData);
+        return redirect()->route('instansinilai.index');
     }
 
     /**

@@ -62,7 +62,6 @@ class AkunController extends Controller
                 'nim' => $request->input('nim')
             ];
     
-            // dd($mhsData);
             Mahasiswa::create($mhsData);
         } elseif ($validatedData['level'] === 'dpl' || $validatedData['level'] === 'kaprodi') {
             $dosenData = [
