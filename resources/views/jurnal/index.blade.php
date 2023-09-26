@@ -33,6 +33,9 @@
                                                     <option value="{{ $lokasiOption->id_lokasi }}">
                                                         {{ $lokasiOption->nama_instansi }}</option>
                                                 @endforeach
+                                                @if ($lokasiOptions->isEmpty())
+                                                    <option value="">Tidak ada instansi tersedia</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -60,7 +63,7 @@
                                                     <th>Nim</th>
                                                     <th>Nama Mahasiswa</th>
                                                     <th>Semester</th>
-                                                    <th>lokasi</th>
+                                                    <th>Lokasi</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -71,18 +74,16 @@
                                                         <td>{{ $item->mahasiswa->nim }}</td>
                                                         <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                                                         <td>{{ $item->mahasiswa->semester }}</td>
-                                                        <td>{{ $item->mahasiswa->lokasi->nama_instansi }}</td>
+                                                        <td>
+                                                            @if ($item->mahasiswa->lokasi)
+                                                                {{ $item->mahasiswa->lokasi->nama_instansi }}
+                                                            @else
+                                                                Tidak ada nama instansi
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <a href=""
                                                                 class="btn btn-rounded btn-outline-success">Detail</a>
-                                                            {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
-                                                        <a href="{{ route('akun.edit', $item->id) }}"
-                                                            class="btn btn-rounded btn-outline-primary">Edit Data</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-rounded btn-outline-danger">Hapus Data</button>
-                                                    </form> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -98,7 +99,6 @@
                 </div>
             </div>
         @endcanany
-
 
         @canany(['mhs-access'])
             <div class="container-fluid">
@@ -146,7 +146,6 @@
                 </div>
             </div>
         @endcanany
-
 
     </div>
 @endsection
