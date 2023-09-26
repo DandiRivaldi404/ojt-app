@@ -32,6 +32,7 @@
                                             <th>Nama Mahasiswa</th>
                                             <th>Tanggal</th>
                                             <th>Keterangan</th>
+                                            <th>Gambar</th>
                                             @canany(['admin-access', 'dpl-access'])
                                                 <th>Lokasi</th>
                                                 <th>Aksi</th>
@@ -45,9 +46,17 @@
                                                 <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                                                 <td>{{ $item->tanggal }}</td>
                                                 <td>{{ $item->keterangan }}</td>
-                                                @canany(['admin-access','dpl-access'])
+                                                <td>
+                                                    <a href="{{ asset($item->foto) }}" target="_blank">
+                                                        <img src="{{ asset($item->foto) }}" alt="Foto"
+                                                            width="100">
+                                                    </a>
+                                                </td>
+
+
+                                                @canany(['admin-access', 'dpl-access'])
                                                     <td>{{ $item->lokasi->nama_instansi }}</td>
-                                               
+
                                                     <td>
                                                         {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
                                                         <a href="{{ route('akun.edit', $item->id) }}"
