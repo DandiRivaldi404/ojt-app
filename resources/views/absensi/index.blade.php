@@ -42,7 +42,7 @@
                                         @foreach ($absensi as $nim_id => $attendance)
                                             <tr class="{{ $loop->even ? 'even' : 'odd' }}">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $attendance->first()->mahasiswa->nama_mahasiswa }}</td>
+                                                <td>{{ $attendance->mahasiswa->nama_mahasiswa }}</td>
                                                 @foreach ($dates as $date)
                                                     <td class="attendance-cell" data-date="{{ $date }}">
                                                         @php
