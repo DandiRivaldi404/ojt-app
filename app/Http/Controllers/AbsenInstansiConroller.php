@@ -32,7 +32,17 @@ class AbsenInstansiConroller extends Controller
             $dates[] = $date->format('Y-m-d');
         }
 
-        if ($user->level === 'dpl') {
+        if ($user->level === 'instansi') {
+            $lokasiKoordinator = optional($user->koordinator)->lokasi_id;
+
+            if (!$lokasiKoordinator) {
+                return redirect()->route('dashboard')->with('error', 'Anda belum memiliki penempatan.');
+            }
+
+            $absensi->whereHas('mahasiswa', function ($query) use ($lokasiKoordinator) {
+                $query->where('lokasi_id', $lokasiKoordinator);
+            });
+        } elseif ($user->level === 'dpl') {
             $lokasiDpl = optional($user->dosen->penempatan)->lokasi_id;
 
             if (!$lokasiDpl) {
@@ -42,19 +52,13 @@ class AbsenInstansiConroller extends Controller
             $absensi->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
                 $query->where('lokasi_id', $lokasiDpl);
             });
-        } elseif ($user->level === 'panitia') {
-            $absensi = $absensi;
-        } else {
+        } elseif ($user->level !== 'panitia') {
             return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki izin akses ke halaman ini.');
         }
 
         $absensi = $absensi->get();
         return view('absensi.index', compact('absensi', 'dates'));
     }
-
-
-
-
 
 
     /**
