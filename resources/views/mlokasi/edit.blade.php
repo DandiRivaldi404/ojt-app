@@ -2,8 +2,8 @@
 
 @section('content')
     <!--**********************************
-                                        Content body start
-                                    ***********************************-->
+                                                Content body start
+                                            ***********************************-->
     <div class="content-body">
 
         <div class="row page-titles mx-0">
@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <div class="form-validation">
                                 <form class="form-valide" action="{{ route('mlokasi.update', $mlokasi->id_lokasi) }}"
-                                    method="post">
+                                    method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="form-group row">
@@ -31,8 +31,8 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="nama_instansi" name="nama_instansi"
-                                                value="{{ $mlokasi->nama_instansi }}">
+                                            <input type="text" class="form-control" id="nama_instansi"
+                                                name="nama_instansi" value="{{ $mlokasi->nama_instansi }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -46,14 +46,20 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="foto_instansi">Semester <span
-                                                class="text-danger">*</span>
-                                        </label>
+                                        <label class="col-lg-4 col-form-label" for="foto_instansi">Foto Instansi</label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="foto_instansi" name="foto_instansi"
+                                            <input type="file" class="form-control" id="foto_instansi" name="foto_instansi">
+                                            <input type="hidden" name="old_foto_instansi"
                                                 value="{{ $mlokasi->foto_instansi }}">
+                                            <small class="text-muted">
+                                                <a href="{{ asset($mlokasi->foto_instansi) }}"
+                                                    target="_blank">
+                                                    Lihat File Sekarang
+                                                </a>
+                                            </small>
                                         </div>
                                     </div>
+
 
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">

@@ -84,10 +84,26 @@ class MlokasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lokasi $mlokasi)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_instansi' => 'required',
+            'visi_misi' => 'required',
+            'foto_instansi' => '',
+        ]);
+
+        if ($request->file('foto_instansi')) {
+            $uploadPath = 'post-lokasi';
+            $filename = $request->file('foto_instansi')->getClientOriginalName();
+            $filePath = $request->file('foto_instansi')->storeAs('public/' . $uploadPath, $filename);
+            $validatedData['foto_instansi'] = 'storage/' . $uploadPath . '/' . $filename;
+        }
+
+        $mlokasi->update($validatedData);
+
+        return redirect()->route('mlokasi.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
