@@ -41,9 +41,9 @@ class AbsenInstansiConroller extends Controller
 
             $absensi->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
                 $query->where('lokasi_id', $lokasiDpl);
-            })->get();
+            });
         } elseif ($user->level === 'panitia') {
-            $absensi = AbsenInstansi::all()->groupBy('nim_id');
+            $absensi = $absensi;
         } else {
             return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki izin akses ke halaman ini.');
         }
@@ -51,6 +51,7 @@ class AbsenInstansiConroller extends Controller
         $absensi = $absensi->get();
         return view('absensi.index', compact('absensi', 'dates'));
     }
+
 
 
 
