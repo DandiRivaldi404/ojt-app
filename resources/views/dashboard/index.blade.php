@@ -41,11 +41,96 @@
 
         </div>
 
-        @if (session('error'))
-            <div class="alert alert-danger mx-auto col-lg-8">
-                {{ session('error') }}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <a style="float: right" href="" class="btn  btn-rounded btn-outline-primary">Edit
+                                Data</a>
+                            <h4 class="card-title">Data Ojtr</h4>
+                            </h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+                                        Angkatan
+                                    </td>
+                                    <td>
+                                        <span style="margin-right: 20px">
+                                            :
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nama Ketua Program Studi
+                                    </td>
+                                    <td>
+                                        <span style="margin-right: 20px">
+                                            :
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        NIDN Ketua Program Studi
+                                    </td>
+                                    <td>
+                                        <span style="margin-right: 20px">
+                                            :
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Pendaftaran Mulai
+                                    </td>
+                                    <td>
+                                        <span style="margin-right: 20px">
+                                            :
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Pendaftran Selesai
+                                    </td>
+                                    <td>
+                                        <span style="margin-right: 20px">
+                                            :
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">File Persyaratan Ojt
+
+                                <a style="float: right" href="" class="btn  btn-rounded btn-outline-primary">Edit
+                                    Data</a>
+                            </h4>
+                            <br>
+                            <h6>1. Terdaftar sebagai mahasiswa aktif</h6>
+                            <h6>2. Telah memenuhi syarat mata kuliah minimal 110 SKS </h6>
+                            <h6>3. Terdaftar sebagai peserta OJt</h6>
+                            <h6>4. Membayar biaya pendaftaran OJT</h6>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
+        </div>
+    </div>
+
+    @if (session('error'))
+        <div class="alert alert-danger mx-auto col-lg-8">
+            {{ session('error') }}
+        </div>
+    @endif
 
     </div>
 @endsection
