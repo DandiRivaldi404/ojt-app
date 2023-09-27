@@ -82,8 +82,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('listabsen.index') }}" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Absen </span>
+                        <a href="{{ route('monitoring.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Monitoring</span>
                         </a>
                     </li>
                     <li>
@@ -91,19 +91,29 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Permintaan Surat Izin</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="{{ route('absenku.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Absen Peserta</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('absensi.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Absen Instansi</span>
+                        </a>
+                    </li>
+
+
                     <li>
                         <a href="{{ route('jurnal.index') }}" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Jurnal</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('monitoring.index') }}" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Monitoring</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="{{ route('instansinilai.index') }}" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Nilai</span>
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Nilai Instansi</span>
                         </a>
                     </li>
                     <li>

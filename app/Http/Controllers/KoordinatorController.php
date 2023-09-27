@@ -78,7 +78,8 @@ class KoordinatorController extends Controller
         ]);
 
         Koordinator::where('id_koordinator', $koordinator->id_koordinator)->update($ValidatedData);
-        return view('koordinator.edit', compact(['koordinator']));
+        return redirect()->route('mpenempatan.index');
+
     }
 
     /**

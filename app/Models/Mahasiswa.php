@@ -26,7 +26,7 @@ class Mahasiswa extends Model
         return $this->belongsTo(Lokasi::class, 'lokasi_id');
     }
 
-    public function absensiinstansi(){
+    public function absensinstansi(){
         return $this->hasOne(AbsenInstansi::class);
     }
 

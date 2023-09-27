@@ -29,8 +29,7 @@ class AbsenInstansiConroller extends Controller
             $dates[] = $date->format('Y-m-d');
         }
 
-        $absensi = AbsenInstansi::all()->groupBy('nim_id'); // Ubah menjadi nim_id jika Anda ingin kelompokkan berdasarkan nim_id
-
+        $absensi = AbsenInstansi::all()->groupBy('nim_id'); 
         return view('absensi.index', compact(['absensi', 'dates']));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbsenMhs;
+use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,22 +15,36 @@ class AbsenkuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
+    $absenku = AbsenMhs::query();
+    $lokasiOptions = Lokasi::all();
 
-        if ($user->level === 'panitia') {
-            $absenku = AbsenMhs::all();
-            return view('absenku.index', compact('absenku'));
+    if ($user->level === 'dpl') {
+        $lokasiDpl = optional($user->dosen->penempatan)->lokasi_id;
+
+        if (!$lokasiDpl) {
+            return redirect()->route('dashboard')->with('error', 'Anda belum memiliki penempatan.');
         }
+
+        $absenku->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
+            $query->where('lokasi_id', $lokasiDpl);
+        });
+    } elseif ($user->level === 'mhs') {
         $mahasiswa = $user->mahasiswa;
 
         if (!$mahasiswa->lokasi) {
             return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
         }
 
-        $absenku = AbsenMhs::where('nim_id', $mahasiswa->nim)->get();
-        return view('absenku.index', compact('absenku'));
+        $absenku->where('nim_id', $mahasiswa->nim);
     }
+
+    $absenku = $absenku->get();
+
+    return view('absenku.index', compact(['absenku', 'lokasiOptions']));
+}
+
 
 
 
