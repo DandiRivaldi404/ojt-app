@@ -36,10 +36,14 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->nama_instansi }}</td>
-                                                <td>{{ $item->visi_misi}}</td>
-                                                <td>{{ $item->foto_instansi}}</td>
+                                                <td>{{ $item->visi_misi }}</td>
                                                 <td>
-                                                    <form action="{{ route('mlokasi.destroy', $item->id_lokasi) }}" method="POST">
+                                                    <img src="{{ asset($item->foto_instansi) }}" alt="Foto Instansi" style="max-width: 100px; height: auto;">
+                                                </td>
+                                                
+                                                <td>
+                                                    <form action="{{ route('mlokasi.destroy', $item->id_lokasi) }}"
+                                                        method="POST">
                                                         <a href="{{ route('mlokasi.edit', $item->id_lokasi) }}"
                                                             class="btn btn-rounded btn-outline-primary">Edit Data</a>
                                                         @csrf
