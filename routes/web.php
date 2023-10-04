@@ -12,7 +12,9 @@ use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\KoordinatorController;
 use App\Http\Controllers\ListAbsenController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MangkatanController;
 use App\Http\Controllers\MdataController;
+use App\Http\Controllers\MdNilaiInstansiController;
 use App\Http\Controllers\MlokasiController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MpenempatanController;
@@ -70,5 +72,7 @@ Route::resource('mpenempatan', MpenempatanController::class);
 Route::resource('koordinator', KoordinatorController::class);
 Route::resource('penempatanlokasi', PenempatanLokasiController::class);
 // Route::resource('dosen', DosenController::class);
+Route::resource('mangkatan', MangkatanController::class);
+Route::resource('mdnilaiinstansi', MdNilaiInstansiController::class);
 
 require __DIR__ . '/auth.php';

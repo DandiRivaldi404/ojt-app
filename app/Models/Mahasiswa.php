@@ -34,6 +34,10 @@ class Mahasiswa extends Model
         return $this->hasOne(Nilai::class);
     }
 
+    public function penilaianinstansi(){
+        return $this->hasOne(PenilaianInstansi::class);
+    }
+
     public function nilaiinstansi(){
         return $this->hasOne(NilaiInstansi::class);
     }

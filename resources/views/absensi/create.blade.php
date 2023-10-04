@@ -34,10 +34,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Loop through the mahasiswa array -->
                                             @foreach ($mahasiswa as $key => $data)
                                                 <tr>
-                                                    <!-- Nama -->
                                                     <td>
                                                         <input type="hidden" name="absensi[{{ $key }}][nim_id]"
                                                             value="{{ $data->nim }}" placeholder="NIM"
@@ -45,7 +43,6 @@
                                                         {{ $data->nama_mahasiswa }}
                                                     </td>
 
-                                                    <!-- Radio buttons for status -->
                                                     <td>
                                                         <input type="radio" name="absensi[{{ $key }}][absen]"
                                                             value="hadir"
@@ -67,11 +64,6 @@
                                                             {{ old('absensi.' . $key . '.absen') === 'izin' ? 'checked' : '' }}>
                                                     </td>
 
-                                                    {{-- <td>
-                                                        <input type="hidden" name="absensi[{{ $key }}][tanggal]"
-                                                            value="{{ old('absensi.' . $key . '.tanggal', now()->format('Y-m-d')) }}"
-                                                            placeholder="Tanggal" class="form-control">
-                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
