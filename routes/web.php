@@ -20,6 +20,7 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MpenempatanController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PenempatanLokasiController;
+use App\Http\Controllers\PenilaianInstansiController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\SuratIzinController;
 use App\Http\Controllers\TugasAkhirController;
@@ -74,5 +75,9 @@ Route::resource('penempatanlokasi', PenempatanLokasiController::class);
 // Route::resource('dosen', DosenController::class);
 Route::resource('mangkatan', MangkatanController::class);
 Route::resource('mdnilaiinstansi', MdNilaiInstansiController::class);
+// Route::resource('penilaianinstansi', PenilaianInstansiController::class);
+Route::resource('penilaianinstansi', PenilaianInstansiController::class)->parameters([
+    'penilaianinstansi' => 'nim', 
+]);
 
 require __DIR__ . '/auth.php';

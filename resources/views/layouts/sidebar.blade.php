@@ -53,8 +53,11 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('jurnal.index') }}">Jurnal</a></li>
                         </ul>
-                        <ul aria-expanded="false">
+                        {{-- <ul aria-expanded="false">
                             <li><a href="{{ route('instansinilai.index') }}">Nilai Instansi</a></li>
+                        </ul> --}}
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('penilaianinstansi.index') }}">Penilaian Instansi</a></li>
                         </ul>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('nilai.index') }}">Nilai Kampus</a></li>
@@ -139,8 +142,13 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Absen Instansi</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('instansinilai.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Nilai</span>
+                        </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('penilaianinstansi.index') }}" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Nilai</span>
                         </a>
                     </li>
