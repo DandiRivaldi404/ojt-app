@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Informasi;
+use App\Models\Jurnal;
 use Illuminate\Http\Request;
 
 class InfoController extends Controller
@@ -52,9 +53,9 @@ class InfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_jurnal)
     {
-        //
+        
     }
 
     /**

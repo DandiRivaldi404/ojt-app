@@ -82,7 +82,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <a href=""
+                                                            <a href="{{route('jurnal.show', $item->id_jurnal)}}"
                                                                 class="btn btn-rounded btn-outline-success">Detail</a>
                                                         </td>
                                                     </tr>
