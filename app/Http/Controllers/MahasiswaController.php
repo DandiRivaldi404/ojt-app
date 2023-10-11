@@ -16,32 +16,32 @@ class MahasiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    $user = Auth::user(); 
-    $level = $user->level;
+    {
+        $user = Auth::user();
+        $level = $user->level;
 
-    if ($level === 'panitia') {
-        $mhs = Mahasiswa::all();
-    } elseif ($level === 'dpl') {
-        if ($user->dosen && $user->dosen->penempatan) {
-            $lokasiDpl = $user->dosen->penempatan->lokasi_id; 
-            $mhs = Mahasiswa::where('lokasi_id', $lokasiDpl)->get();
+        if ($level === 'panitia') {
+            $mhs = Mahasiswa::all();
+        } elseif ($level === 'dpl') {
+            if ($user->dosen && $user->dosen->penempatan) {
+                $lokasiDpl = $user->dosen->penempatan->lokasi_id;
+                $mhs = Mahasiswa::where('lokasi_id', $lokasiDpl)->get();
+            } else {
+                return redirect()->route('dashboard')->with('error', 'Anda Belum Memiliki Lokasi Penempatan');
+            }
+        } elseif ($level === 'instansi') {
+            if ($user->koordinator && $user->koordinator->lokasi) {
+                $lokasiKoodinator = $user->koordinator->lokasi_id;
+                $mhs = Mahasiswa::where('lokasi_id', $lokasiKoodinator)->get();
+            }
         } else {
-            return redirect()->route('dashboard')->with('error', 'Anda Belum Memiliki Lokasi Penempatan');
+            return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
         }
-    } elseif ($level === 'instansi') {
-        if($user->koordinator && $user->koordinator->lokasi) {
-            $lokasiKoodinator = $user->koordinator->lokasi_id;
-            $mhs = Mahasiswa::where('lokasi_id', $lokasiKoodinator)->get();
-        }
-    } else {
-        return redirect()->route('dashboard')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+
+        return view('mahasiswa.index', compact('mhs'));
     }
 
-    return view('mahasiswa.index', compact('mhs'));
-}
 
-    
 
 
 
@@ -87,7 +87,7 @@ class MahasiswaController extends Controller
     public function edit(mahasiswa $mahasiswa)
     {
         $lokasi = Lokasi::all();
-        return view('mahasiswa.edit', compact(['mahasiswa','lokasi']));
+        return view('mahasiswa.edit', compact(['mahasiswa', 'lokasi']));
     }
 
     /**
@@ -97,7 +97,7 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Mahasiswa $mahasiswa)
+    public function update(Request $request, Mahasiswa $mahasiswa)
     {
         $ValidatedData = $request->validate([
             'nama_mahasiswa' => '',

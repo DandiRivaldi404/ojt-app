@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dataojt;
 use App\Models\Filebrks;
-use App\Models\Informasi;
-use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class FilebrksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +14,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::all();
-        $info  = Informasi::all();
-        $dataojt = Dataojt::all();
-        $filebrks = Filebrks::all();
-        return view('dashboard.index', compact(['mhs', 'info', 'dataojt', 'filebrks']));
+        $filebrks = filebrks::all();
+        return view('filebrks.index', compact('filebrks'));
     }
 
     /**
@@ -31,7 +25,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('filebrks.create');
     }
 
     /**
@@ -42,7 +36,15 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ValidateData = $request-> validate([
+            'terdaftar' => '',
+            'memenuhi_syarat' => '',
+            'terdaftar_peserta' => '',
+            'pembayaran' => '',
+
+        ]);
+        filebrks::created($ValidateData);
+        return redirect()->route('filebrks.index');
     }
 
     /**
@@ -62,9 +64,9 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(filebrks $filebrks)
     {
-        //
+        return view('filebrks.edit', compact('filebrks'));
     }
 
     /**
@@ -74,9 +76,16 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, filebrks $filebrks)
     {
-        //
+        $ValidateData = $request-> validate([
+            'terdaftar' => '',
+            'memenuhi_syarat' => '',
+            'terdaftar_peserta' => '',
+            'pembayaran' => '',
+        ]);
+        filebrks::where('id_filebrks', $filebrks->id_filebrks)->update($ValidateData);
+        return redirect('dashboard');
     }
 
     /**

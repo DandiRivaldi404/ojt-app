@@ -4,7 +4,7 @@
             @guest
             @else
                 <li>
-                    <a class="" href="javascript:void()" aria-expanded="false">
+                    <a class="" href="{{route('dashboard.index')}}" aria-expanded="false">
                         <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                     </a>
                 </li>
@@ -60,8 +60,11 @@
                             <li><a href="{{ route('penilaianinstansi.index') }}">Penilaian Instansi</a></li>
                         </ul>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('nilai.index') }}">Nilai Kampus</a></li>
+                            <li><a href="{{ route('penilaian.index') }}">Penilaian Kampus</a></li>
                         </ul>
+                        {{-- <ul aria-expanded="false">
+                            <li><a href="{{ route('nilai.index') }}">Nilai Kampus</a></li>
+                        </ul> --}}
                         <ul aria-expanded="false">
                             <li><a href="{{ route('monitoring.index') }}">Monitoring</a></li>
                         </ul>
@@ -113,12 +116,17 @@
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Jurnal</span>
                         </a>
                     </li>
-
+                    
                     <li>
-                        <a href="{{ route('instansinilai.index') }}" aria-expanded="false">
+                        <a href="{{ route('penilaianinstansi.index') }}" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Nilai Instansi</span>
                         </a>
                     </li>
+                    {{-- <li>
+                        <a href="{{ route('instansinilai.index') }}" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Nilai Instansi</span>
+                        </a>
+                    </li> --}}
                     <li>
                         <a href="{{ route('tugasakhir.index') }}" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">Laporan Tugas Akhir</span>

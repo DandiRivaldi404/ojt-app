@@ -28,7 +28,6 @@ class SuratIzinController extends Controller
                 return redirect()->route('dashboard')->with('error', 'Anda belum memiliki penempatan.');
             }
 
-            // Filter surat berdasarkan lokasi penempatan DPL
             $surat->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
                 $query->where('lokasi_id', $lokasiDpl);
             });
@@ -38,12 +37,9 @@ class SuratIzinController extends Controller
             if (!$mahasiswa->lokasi) {
                 return redirect()->route('dashboard')->with('error', 'Anda belum memiliki lokasi. Anda Bisa Mengakses Jika Memeiliki Lokasi.');
             }
-
-            // Filter surat berdasarkan NIM mahasiswa
             $surat->where('nim_id', $mahasiswa->nim);
         }
 
-        // Ambil hasil query surat
         $surat = $surat->get();
 
         return view('surat.index', compact('surat', 'lokasiOptions'));

@@ -16,4 +16,8 @@ class Angkatan extends Model
     public function daftarnilaiinstansi(){
         return $this->hasOne(DaftarNilaiInstansi::class);
     }
+
+    public function dataojt(){
+        return $this->hasOne(Dataojt::class);
+    }
 }

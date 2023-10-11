@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dataojt;
-use App\Models\Filebrks;
-use App\Models\Informasi;
-use App\Models\Mahasiswa;
+use App\Models\Angkatan;
+use App\Models\DaftarNilai;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class MdNilaikController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +15,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $mhs = Mahasiswa::all();
-        $info  = Informasi::all();
-        $dataojt = Dataojt::all();
-        $filebrks = Filebrks::all();
-        return view('dashboard.index', compact(['mhs', 'info', 'dataojt', 'filebrks']));
+        $nilaik = DaftarNilai::all();
+        return view('mdnilaik.index', compact(['nilaik']));
     }
 
     /**
@@ -31,7 +26,8 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+        $angkatan = Angkatan::all();
+        return view('mdnilaik.create', compact(['angkatan']));
     }
 
     /**
@@ -42,7 +38,18 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'angkatan_id' => '',
+            'daftar_nilai_kampus.*' => '',
+        ]);
+
+        foreach ($data['daftar_nilai_kampus'] as $nilai) {
+            DaftarNilai::create([
+                'angkatan_id' => $data['angkatan_id'],
+                'daftar_nilai_kampus' => $nilai,
+            ]);
+        }
+        return redirect()->route('mdnilaik.index')->with('success', 'Data Berhasil Tersimpan');
     }
 
     /**

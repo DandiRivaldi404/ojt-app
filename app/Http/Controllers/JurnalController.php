@@ -108,11 +108,18 @@ class JurnalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id_jurnal)
+    public function show($nim_id)
     {
-        $jurnal = Jurnal::find($id_jurnal);
-        return view('jurnal.show', compact(['jurnal']));
+        $jurnal = Jurnal::where('nim_id', $nim_id)->get();
+
+        if ($jurnal->isEmpty()) {
+            return redirect()->route('jurnal.index')->with('error', 'Tidak ada jurnal terkait dengan NIM ini.');
+        }
+
+        return view('jurnal.show', compact('jurnal'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

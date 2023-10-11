@@ -71,36 +71,12 @@
                                         @foreach ($surat as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
+                                                <td>{{ optional($item->mahasiswa)->nama_mahasiswa }}</td>
                                                 <td>{{ $item->tgl_awal }} - {{ $item->tgl_akhir }}</td>
                                                 <td>{{ $item->keterangan }}</td>
                                                 <td>{{ $item->status }}</td>
                                                 <td>
-                                                    {{-- <form action="{{ route('akun.destroy', $item->id) }}" method="POST">
-                                                        <a href="{{ route('akun.edit', $item->id) }}"
-                                                            class="btn btn-rounded btn-outline-primary">Edit Data</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-rounded btn-outline-danger">Hapus Data</button>
-                                                    </form> --}}
-                                                    @canany(['admin-access','dpl-access'])
-                                                        <form class="update-pembayaran-form"
-                                                            action="{{ route('surat.editstatus', $item->id_surat) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-
-                                                            <select class="status" name="status"
-                                                                onchange="showConfirmation(this)">
-                                                                <option value="{{ $item->id_surat }}">{{ $item->status }}
-                                                                </option>
-                                                                <option value="di proses">Di Proses</option>
-                                                                <option value="di tolak">Di Tolak</option>
-                                                                <option value="di setujui">Di Setujui</option>
-                                                            </select>
-                                                        </form>
-                                                    @endcanany
+                                                    {{-- ... kode lainnya ... --}}
                                                 </td>
                                             </tr>
                                         @endforeach

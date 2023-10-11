@@ -53,7 +53,7 @@
                             <p>Pembimbing Instansi : </p>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered zero-configuration">
-                                    <a style="float: right" href="{{ route('penilaianinstansi.create') }}"
+                                    <a style="float: right" href="{{ route('penilaian.create') }}"
                                         class="btn mb-1 btn-rounded btn-outline-primary">Tambah Nilai</a>
                                     <thead>
                                         <tr>

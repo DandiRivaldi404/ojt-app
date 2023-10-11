@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Angkatan;
 use App\Models\DaftarNilaiInstansi;
+use App\Models\Dataojt;
+use App\Models\Lokasi;
 use App\Models\Mahasiswa;
 use App\Models\PenilaianInstansi;
 use App\Models\PenilainInstansi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PenilaianInstansiController extends Controller
 {
@@ -18,22 +22,59 @@ class PenilaianInstansiController extends Controller
      */
     public function index(Request $request)
     {
-        $penilaian = PenilaianInstansi::with('mahasiswa', 'daftarnilaiinstansi')->get();
-        $data = [];
-        foreach ($penilaian as $item) {
-            $nim = $item->mahasiswa->nim;
-            $nilai = $item->daftarnilaiinstansi->daftar_nilai_instansi;
-            $angka_nilai = $item->nilai_angka;
+        $user = Auth::user();
+        $level = $user->level;
+        
+        $penilaian = PenilaianInstansi::with('mahasiswa', 'daftarnilaiinstansi');
+        
+        $dataojt = Dataojt::where('status', 1)->first();
+        
+        if ($dataojt) {
+            $angkatanId = $dataojt->angkatan_id;
 
-            if (!isset($data[$nim][$nilai])) {
-                $data[$nim][$nilai] = [];
+            $daftar = DaftarNilaiInstansi::where('angkatan_id', $angkatanId)->get();            
+            $penilaian = $penilaian->whereHas('daftarnilaiinstansi', function ($query) use ($angkatanId) {
+                $query->where('angkatan_id', $angkatanId);
+            });
+            
+            if ($level == 'panitia') {
+                $penilaian = $penilaian->get();
+            } elseif ($level == 'dpl') {
+                if ($user->dosen && $user->dosen->penempatan) {
+                    $lokasiDpl = $user->dosen->penempatan->lokasi_id;
+                    $penilaian = $penilaian->whereHas('mahasiswa', function ($query) use ($lokasiDpl) {
+                        $query->where('lokasi_id', $lokasiDpl);
+                    })->get();
+                } else {
+                    return redirect()->route('dashboard')->with('error', 'Anda Belum Memiliki Lokasi Penempatan');
+                }
+            } elseif ($level == 'instansi') {
+                if ($user->koordinator && $user->koordinator->lokasi) {
+                    $lokasiKoordinator = optional($user->koordinator)->lokasi_id;
+                    $penilaian = $penilaian->whereHas('mahasiswa', function ($query) use ($lokasiKoordinator) {
+                        $query->where('lokasi_id', $lokasiKoordinator);
+                    })->get();
+                } else {
+                    return redirect()->route('dashboard')->with('error', 'Anda Belum Memiliki Lokasi Penempatan');
+                }
             }
-
-            $data[$nim][$nilai][] = $angka_nilai;
+            
+            $groupedData = $penilaian->groupBy(function ($item) {
+                return $item->mahasiswa->nim . '-' . $item->daftarnilaiinstansi->daftar_nilai_instansi;
+            });
+            
+            $data = [];
+            foreach ($groupedData as $key => $items) {
+                list($nim, $nilai) = explode('-', $key);
+                $data[$nim][$nilai] = $items->pluck('nilai_angka')->toArray();
+            }
+            
+            return view('penilaianinstansi.index', compact('data', 'daftar'));
+        } else {
+            return redirect()->back()->with('error', 'Dataojt dengan status 1 tidak ditemukan.');
         }
-
-        return view('penilaianinstansi.index', compact('data'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,12 +83,35 @@ class PenilaianInstansiController extends Controller
      */
     public function create()
     {
-        $angkatan = Angkatan::all();
-        $daftar = DaftarNilaiInstansi::all();
-        $mhs = Mahasiswa::all();
-        $penilaian = PenilaianInstansi::all();
-        return view('penilaianinstansi.create', compact(['mhs', 'daftar', 'angkatan', 'penilaian']));
+
+        $user = Auth::user();
+        $penilaian = PenilaianInstansi::query();
+        $lokasiOptions = Lokasi::all();
+
+        $dataojt = Dataojt::where('status', 1)->first();
+
+        if ($dataojt) {
+            $angkatanId = $dataojt->angkatan_id;
+            $daftar = DaftarNilaiInstansi::where('angkatan_id', $angkatanId)->get();
+
+
+            if ($user->level === 'instansi') {
+                $lokasiKoordinator = optional($user->koordinator)->lokasi_id;
+                $mhs = Mahasiswa::where('lokasi_id', $lokasiKoordinator)->get();
+            } else {
+                $mhs = Mahasiswa::all();
+            }
+
+            $penilaian = PenilaianInstansi::all();
+
+            return view('penilaianinstansi.create', compact('mhs', 'daftar', 'dataojt', 'penilaian'));
+        } else {
+            return redirect()->back()->with('error', 'Dataojt dengan status 1 tidak ditemukan.');
+        }
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.

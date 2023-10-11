@@ -35,7 +35,7 @@ class Mahasiswa extends Model
     }
 
     public function penilaianinstansi(){
-        return $this->hasOne(PenilaianInstansi::class);
+        return $this->hasOne(PenilaianInstansi::class, 'nim_id', 'nim');
     }
 
     public function nilaiinstansi(){

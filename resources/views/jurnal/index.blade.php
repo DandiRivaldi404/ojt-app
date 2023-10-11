@@ -68,25 +68,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($jurnal as $item)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $item->mahasiswa->nim }}</td>
-                                                        <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
-                                                        <td>{{ $item->mahasiswa->semester }}</td>
-                                                        <td>
-                                                            @if ($item->mahasiswa->lokasi)
-                                                                {{ $item->mahasiswa->lokasi->nama_instansi }}
-                                                            @else
-                                                                Tidak ada nama instansi
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{route('jurnal.show', $item->id_jurnal)}}"
-                                                                class="btn btn-rounded btn-outline-success">Detail</a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                                @php
+                                                $nimGroups = $jurnal->groupBy('mahasiswa.nim');
+                                            @endphp
+                                            @foreach ($nimGroups as $nim => $items)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $nim }}</td>
+                                                    <td>{{ $items[0]->mahasiswa->nama_mahasiswa }}</td>
+                                                    <td>{{ $items[0]->mahasiswa->semester }}</td>
+                                                    <td>
+                                                        @if ($items[0]->mahasiswa->lokasi)
+                                                            {{ $items[0]->mahasiswa->lokasi->nama_instansi }}
+                                                        @else
+                                                            Tidak ada nama instansi
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('jurnal.show', $items[0]->mahasiswa->nim) }}"
+                                                            class="btn btn-rounded btn-outline-success">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
                                     @else
@@ -99,7 +102,7 @@
                 </div>
             </div>
         @endcanany
-
+        
         @canany(['mhs-access'])
             <div class="container-fluid">
                 <div class="row">
